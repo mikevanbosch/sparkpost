@@ -19,9 +19,7 @@ describe('SparkpostService', () => {
       await sparkpostService.create(expectedSparkPost);
 
       expect(sparkpostRepositorySpy).toHaveBeenCalledTimes(1);
-      expect(sparkpostRepositorySpy).toHaveBeenLastCalledWith(
-        expectedSparkPost,
-      );
+      expect(sparkpostRepositorySpy).toHaveBeenCalledWith(expectedSparkPost);
     });
   });
 
@@ -44,7 +42,9 @@ describe('SparkpostService', () => {
       jest
         .spyOn(sparkpostRepository, 'findByName')
         .mockResolvedValue(sparkpostDocument);
-      const sparkpost = await sparkpostService.findByName(expectedSparkpost.name);
+      const sparkpost = await sparkpostService.findByName(
+        expectedSparkpost.name,
+      );
 
       expect(sparkpost).toEqual(expectedSparkpost);
     });
@@ -53,7 +53,7 @@ describe('SparkpostService', () => {
       jest
         .spyOn(sparkpostRepository, 'findByName')
         .mockResolvedValue(undefined);
-      const sparkpost = await sparkpostService.findByName("some name");
+      const sparkpost = await sparkpostService.findByName('some name');
 
       expect(sparkpost).toEqual(undefined);
     });
@@ -75,10 +75,10 @@ describe('SparkpostService', () => {
 
       expect(sparkpostRepositoryFindSpy).toHaveBeenCalledTimes(1);
       expect(sparkpostRepositoryUpdateSpy).toHaveBeenCalledTimes(1);
-      expect(sparkpostRepositoryFindSpy).toHaveBeenLastCalledWith(
+      expect(sparkpostRepositoryFindSpy).toHaveBeenCalledWith(
         expectedSparkPost.name,
       );
-      expect(sparkpostRepositoryUpdateSpy).toHaveBeenLastCalledWith(
+      expect(sparkpostRepositoryUpdateSpy).toHaveBeenCalledWith(
         expectedSparkPost,
       );
     });
@@ -99,7 +99,9 @@ describe('SparkpostService', () => {
 
     it('should return undefined if sparkpost cant be found', async () => {
       const expectedSparkpost = { name: 'michael', age: 25 };
-      jest.spyOn(sparkpostRepository, 'findByName').mockResolvedValue(undefined);
+      jest
+        .spyOn(sparkpostRepository, 'findByName')
+        .mockResolvedValue(undefined);
       jest
         .spyOn(sparkpostRepository, 'updateAge')
         .mockImplementation(jest.fn());

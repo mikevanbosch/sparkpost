@@ -10,19 +10,19 @@ export class SparkpostRepository {
     private sparkpostModel: Model<SparkpostDocument>,
   ) {}
 
-  async create(sparkpostDto: Sparkpost): Promise<SparkpostDocument> {
-    return new this.sparkpostModel(sparkpostDto).save();
+  async create(sparkpost: Sparkpost): Promise<SparkpostDocument> {
+    return new this.sparkpostModel(sparkpost).save();
   }
 
   async findByName(name: string): Promise<SparkpostDocument> {
     return this.sparkpostModel.findOne({ name }).exec();
   }
 
-  async updateAge(sparkpostDto: Sparkpost): Promise<SparkpostDocument> {
+  async updateAge(sparkpost: Sparkpost): Promise<SparkpostDocument> {
     return this.sparkpostModel.update(
-      { name: sparkpostDto.name },
+      { name: sparkpost.name },
       {
-        age: sparkpostDto.age,
+        age: sparkpost.age,
       },
       { runValidators: true },
     );

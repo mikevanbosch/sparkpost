@@ -21,8 +21,8 @@ export class SparkpostController {
 
   @Post()
   @UseFilters(new MongoErrorFilter(), new ValidationErrorFilter())
-  async create(@Body() sparkpostDto: Sparkpost): Promise<void> {
-    await this.sparkpostService.create(sparkpostDto);
+  async create(@Body() sparkpost: Sparkpost): Promise<void> {
+    await this.sparkpostService.create(sparkpost);
   }
 
   @Get(':name')
@@ -38,9 +38,9 @@ export class SparkpostController {
   @Put()
   @HttpCode(204)
   @UseFilters(new MongoErrorFilter(), new ValidationErrorFilter())
-  async update(@Body() sparkpostDto: Sparkpost): Promise<void> {
-    const sparkpost = await this.sparkpostService.updateAge(sparkpostDto);
-    if (!sparkpost) {
+  async update(@Body() sparkpost: Sparkpost): Promise<void> {
+    const returnedSparkpost = await this.sparkpostService.updateAge(sparkpost);
+    if (!returnedSparkpost) {
       throw new BadRequestException();
     }
   }
