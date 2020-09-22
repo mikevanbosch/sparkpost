@@ -26,7 +26,7 @@ export class SparkpostController {
   }
 
   @Get(':name')
-  async findOne(@Param('name') name): Promise<Sparkpost> {
+  async findOne(@Param('name') name: string): Promise<Sparkpost> {
     const sparkpost = await this.sparkpostService.findByName(name);
     if (!sparkpost) {
       throw new NotFoundException();
