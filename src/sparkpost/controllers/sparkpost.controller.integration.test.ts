@@ -48,10 +48,6 @@ describe('SparkpostRepository', () => {
     await app.close();
   });
 
-  afterAll(async () => {
-    await app.close();
-  });
-
   describe('create', () => {
     it('should respond 201 when a sparkpost is created', async () => {
       return request(app.getHttpServer())
