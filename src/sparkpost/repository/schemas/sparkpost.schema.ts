@@ -19,6 +19,8 @@ export const SparkpostSchema = new mongoose.Schema(
     age: {
       type: Number,
       required: true,
+      min: 0,
+      max: 150,
     },
   },
   { versionKey: false },

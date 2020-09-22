@@ -24,6 +24,7 @@ export class SparkpostRepository {
       {
         age: sparkpostDto.age,
       },
+      { runValidators: true },
     );
   }
 }

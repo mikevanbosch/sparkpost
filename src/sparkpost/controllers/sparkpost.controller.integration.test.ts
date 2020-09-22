@@ -70,6 +70,17 @@ describe('SparkpostRepository', () => {
         });
     });
 
+    it('should validate age limit', async () => {
+      const expectedSparkpost = { name: 'michael', age: 250 };
+      return request(app.getHttpServer())
+        .post('/sparkpost')
+        .send(expectedSparkpost)
+        .expect(HttpStatus.BAD_REQUEST)
+        .then(response => {
+          expect(response.body.errors).toBeDefined();
+        });
+    });
+
     it('should respond 409 conflict when name already exists', async () => {
       const sameSparkpost = { name: 'michael', age: 25 };
       await request(app.getHttpServer())
@@ -128,5 +139,20 @@ describe('SparkpostRepository', () => {
       .put('/sparkpost')
       .send(expectedSparkpost)
       .expect(HttpStatus.NO_CONTENT);
+  });
+
+  it('should validate age limit', async () => {
+    await request(app.getHttpServer())
+      .post('/sparkpost')
+      .send({ name: 'michael', age: 25 })
+      .expect(HttpStatus.CREATED);
+
+    return request(app.getHttpServer())
+      .put('/sparkpost')
+      .send({ name: 'michael', age: 250 })
+      .expect(HttpStatus.BAD_REQUEST)
+      .then(response => {
+        expect(response.body.errors).toBeDefined();
+      });
   });
 });

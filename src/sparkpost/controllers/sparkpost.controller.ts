@@ -21,7 +21,7 @@ export class SparkpostController {
 
   @Post()
   @UseFilters(new MongoErrorFilter(), new ValidationErrorFilter())
-  async create(@Body() sparkpostDto: Sparkpost) {
+  async create(@Body() sparkpostDto: Sparkpost): Promise<void> {
     await this.sparkpostService.create(sparkpostDto);
   }
 
